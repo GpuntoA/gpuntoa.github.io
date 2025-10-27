@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uovo Timer - Presentazione</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        .slide-container {
+            width: 100%;
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            position: relative;
+        }
+
+        .slide1 { background: linear-gradient(135deg, #FFF5E1 0%, #FFE4B5 100%); }
+        .slide2 { background: linear-gradient(135deg, #E5F3FF 0%, #B3E0FF 100%); }
+        .slide3 { background: linear-gradient(135deg, #F0E8FF 0%, #E0D4FF 100%); }
+        .slide4 { background: linear-gradient(135deg, #FFF5E1 0%, #FFE4B5 100%); }
+        .slide5 { background: linear-gradient(135deg, #E5F3FF 0%, #B3E0FF 100%); }
+        .slide6 { background: linear-gradient(135deg, #F0E8FF 0%, #E0D4FF 100%); }
+        .slide7 { background: linear-gradient(135deg, #FFF5E1 0%, #FFE4B5 100%); }
+        .slide8 { background: linear-gradient(135deg, #E5F3FF 0%, #B3E0FF 100%); }
+       
+        h1 {
+            font-size: 3.5em;
+            color: #212121;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.8em;
+            color: #212121;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.8em;
+            color: #424242;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .content {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        ul {
+            list-style: none;
+            font-size: 1.4em;
+            line-height: 2;
+            color: #212121;
+        }
+
+        ul li {
+            margin-bottom: 25px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        ul li:before {
+            content: "🥚";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .egg {
+            width: 180px;
+            height: 220px;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .egg:before {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            background: #FFC107;
+            border-radius: 50%;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.6;
+        }
+
+        .egg.cracked:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: #9C27B0;
+            top: 48%;
+            left: 0;
+            transform: rotate(-5deg);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .tamagotchi {
+            width: 160px;
+            height: 200px;
+            background: linear-gradient(135deg, #00BFA5 0%, #00897B 100%);
+            border-radius: 45% 45% 50% 50%;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            margin: 30px;
+            border: 4px solid #212121;
+        }
+
+        .tamagotchi .screen {
+            width: 80px;
+            height: 60px;
+            background: #fff;
+            border-radius: 10px;
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 2px solid #212121;
+        }
+
+        .tamagotchi .buttons {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .tamagotchi .button {
+            width: 20px;
+            height: 20px;
+            background: #FFC107;
+            border-radius: 50%;
+            border: 2px solid #212121;
+        }
+
+        .avatar {
+            width: 140px;
+            height: 200px;
+            position: relative;
+            margin: 30px;
+        }
+
+        .avatar .head {
+            width: 70px;
+            height: 70px;
+            background: #9C27B0;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 3px solid #212121;
+        }
+
+        .avatar .body {
+            width: 100px;
+            height: 110px;
+            background: #9C27B0;
+            border-radius: 20px;
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 3px solid #212121;
+        }
+
+        .icons-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-size: 1.2em;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(33,33,33,0.8);
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: #FFC107;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #212121;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #FFD54F;
+            transform: scale(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            font-size: 1.1em;
+        }
+
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+        }
+
+        th {
+            background: rgba(255,193,7,0.3);
+            font-weight: 700;
+        }
+
+        @media print {
+            .slide {
+                page-break-after: always;
+            }
+            .navigation {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container" id="slideContainer">
+        <!-- Slide 1 -->
+        <div class="slide slide1">
+            <h1>Perché l'uovo che si schiude<br>batte l'avatar nei timer di studio</h1>
+            <p class="subtitle">Più focus, più motivazione, un brand più forte</p>
+            <div class="egg"></div>
+            <div class="slide-number">1/10</div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide slide2">
+            <div class="content">
+                <h2>Il problema e l'intuizione</h2>
+                <ul>
+                    <li>Durante il timer, qualsiasi distrazione rompe il flusso e riduce la produttività</li>
+                    <li>Un evento atteso al termine (l'uovo che si schiude) crea tensione positiva e incentiva a non lasciare l'app</li>
+                    <li>L'avatar che "studia con te" è meno vincolante: osservabile anche passivamente</li>
+                </ul>
+                <div class="icons-row">
+                    <div class="egg"></div>
+                    <div class="avatar">
+                        <div class="head"></div>
+                        <div class="body"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">2/10</div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide slide3">
+            <div class="content">
+                <h2 style="color: #9C27B0;">Come funziona l'uovo</h2>
+                <ul>
+                    <li>Timer = incubazione: l'uovo si "scalda" con il tempo</li>
+                    <li>Se abbandoni l'app, l'incubazione si ferma: niente schiusa</li>
+                    <li>Alla fine: schiusa + sorpresa visiva/sonora + badge collezionabile</li>
+                </ul>
+                <div class="icons-row">
+                    <div class="egg"></div>
+                    <div class="egg cracked"></div>
+                </div>
+            </div>
+            <div class="slide-number">3/10</div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide slide4">
+            <div class="content">
+                <h2 style="color: #00BFA5;">Psicologia che aiuta il focus</h2>
+                <ul>
+                    <li><strong>Effetto Zeigarnik:</strong> i compiti incompleti restano attivi in memoria e spingono a chiudere</li>
+                    <li><strong>Goal Gradient:</strong> la motivazione accelera quando il traguardo si avvicina</li>
+                    <li><strong>Endowed Progress:</strong> piccoli avanzamenti percepiti aumentano l'impegno</li>
+                </ul>
+            </div>
+            <div class="slide-number">4/10</div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide slide5">
+            <div class="content">
+                <h2 style="color: #FFC107;">Nostalgia Tamagotchi</h2>
+                <ul>
+                    <li>Dispositivo iconico a forma di uovo: anni '90/'00, decine di milioni di unità vendute</li>
+                    <li>Attaccamento affettivo al "prendersi cura" di un essere digitale</li>
+                    <li>Colpisce adulti (nostalgia) e ragazzi (novità/collezione)</li>
+                </ul>
+                <div class="tamagotchi">
+                    <div class="screen"></div>
+                    <div class="buttons">
+                        <div class="button"></div>
+                        <div class="button"></div>
+                        <div class="button"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">5/10</div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide slide6">
+            <div class="content">
+                <h2 style="color: #9C27B0;">Brand più forte con l'uovo</h2>
+                <ul>
+                    <li>Asset distintivo semplice e universale (forma/emoji dell'uovo)</li>
+                    <li>Facile estendere a motion (schiusa), suono (crack), stagionalità (uova a tema)</li>
+                    <li>Alta riconoscibilità in icona app, sticker, merchandising</li>
+                </ul>
+                <div class="egg"></div>
+            </div>
+            <div class="slide-number">6/10</div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide slide7">
+            <div class="content">
+                <h2 style="color: #00BFA5;">Flusso UX suggerito</h2>
+                <ul>
+                    <li>Imposta sessione (25–50 min) → Avvio incubazione</li>
+                    <li>Barra/cerchio di progresso sull'uovo (micro-ricompense)</li>
+                    <li>Schiusa → reveal sorpresa → aggiunta a collezione/badge</li>
+                </ul>
+                <div class="icons-row">
+                    <div class="egg" style="width: 100px; height: 120px;"></div>
+                    <span style="font-size: 3em;">→</span>
+                    <div class="egg cracked" style="width: 100px; height: 120px;"></div>
+                    <span style="font-size: 3em;">→</span>
+                    <div class="tamagotchi" style="width: 80px; height: 100px;">
+                        <div class="screen" style="width: 40px; height: 30px; top: 18px;"></div>
+                        <div class="buttons" style="bottom: 20px;">
+                            <div class="button" style="width: 10px; height: 10px;"></div>
+                            <div class="button" style="width: 10px; height: 10px;"></div>
+                            <div class="button" style="width: 10px; height: 10px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">7/10</div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide slide8">
+            <div class="content">
+                <h2 style="color: #FFC107;">Uovo vs Avatar (in breve)</h2>
+                <ul>
+                    <li><strong>Uovo:</strong> forte "end point" e suspense → incentiva a restare sull'app</li>
+                    <li><strong>Uovo:</strong> collezionabilità e variabilità → più retention</li>
+                    <li><strong>Avatar:</strong> empatia ma meno vincolo → rischio distrazione/passività</li>
+                </ul>
+                <div class="icons-row">
+                    <div class="egg"></div>
+                    <div class="avatar">
+                        <div class="head"></div>
+                        <div class="body"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">8/10</div>
+        </div>
+
+        
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Indietro</button>
+        <button class="nav-btn" onclick="nextSlide()">Avanti →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const container = document.getElementById('slideContainer');
+
+        function goToSlide(index) {
+            if (index >= 0 && index < slides.length) {
+                currentSlide = index;
+                slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Update current slide based on scroll
+        container.addEventListener('scroll', () => {
+            const scrollPosition = container.scrollTop + window.innerHeight / 2;
+            slides.forEach((slide, index) => {
+                const slideTop = slide.offsetTop;
+                const slideBottom = slideTop + slide.offsetHeight;
+                if (scrollPosition >= slideTop && scrollPosition < slideBottom) {
+                    currentSlide = index;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
