@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Per la mia ragazza</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .home-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 60px 40px;
+            max-width: 600px;
+            text-align: center;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #764ba2;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #764ba2;
+            border: 2px solid #764ba2;
+        }
+
+        .btn-secondary:hover {
+            background: #764ba2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #764ba2;
+            background: none;
+            border: none;
+            transition: transform 0.2s;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .contract-title {
+            color: #764ba2;
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .contract-subtitle {
+            color: #667eea;
+            font-size: 1em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .contract-clauses {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .clause {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .clause-number {
+            font-weight: 700;
+            color: #764ba2;
+            margin-right: 8px;
+        }
+
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #667eea;
+        }
+
+        .signature-label {
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .signature-inputs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .signature-field {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .signature-field label {
+            display: block;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .signature-field input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Brush Script MT', cursive;
+            transition: border-color 0.3s;
+        }
+
+        .signature-field input:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .signature-date {
+            text-align: right;
+            color: #667eea;
+            font-size: 0.95em;
+            margin-top: 20px;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #667eea;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-top: 20px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .emoji {
+            font-size: 2em;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Page -->
+    <div class="home-container">
+        <h1>💕 Per la mia ragazza 💕</h1>
+        <p class="subtitle">Una piccola sorpresa per te...</p>
+        <div class="buttons-container">
+            <button class="btn btn-primary" onclick="openContract()">📜 Contratto di Futuro Matrimonio</button>
+            <button class="btn btn-secondary" onclick="showMessage()">💌 Un messaggio speciale</button>
+        </div>
+    </div>
+
+    <!-- Contract Modal -->
+    <div id="contractModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeContract()">&times;</button>
+            
+            <div style="text-align: center;">
+                <h2 class="contract-title">📜 CONTRATTO DI FUTURO MATRIMONIO 📜</h2>
+                <p class="contract-subtitle">Un accordo per sempre tra le parti</p>
+            </div>
+
+            <div class="contract-clauses">
+                <div class="clause">
+                    <span class="clause-number">Art. 1</span>
+                    <span>Fabiana si impegna a prendersi cura di Gabriele ogni giorno, inclusa la vigilanza costante che non faccia danno a se stesso.</span>
+                </div>
+                
+                <div class="clause">
+                    <span class="clause-number">Art. 2</span>
+                    <span>Fabiana sopporterà Gabriele ogni giorno anche se è un po' pesante, mantenendo pazienza infinita e amorevole rassegnazione.</span>
+                </div>
+                
+                <div class="clause">
+                    <span class="clause-number">Art. 3</span>
+                    <span>Fabiana amerà Gabriele sempre, in ogni situazione, anche quando sarà particolarmente fastidioso.</span>
+                </div>
+                
+                <div class="clause">
+                    <span class="clause-number">Art. 4</span>
+                    <span>Fabiana farà notare a Gabriele le cose che sbaglia per renderlo una persona migliore per lei, con amore e tenerezza costruttiva.</span>
+                </div>
+                
+                <div class="clause">
+                    <span class="clause-number">Art. 5</span>
+                    <span>Gabriele si impegnerà a fare tutte queste cose perché la ama, ricambiando con dedizione il sentimento della sua Fabiana.</span>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-label">✍️ FIRME UFFICIALI:</div>
+                
+                <div class="signature-inputs">
+                    <div class="signature-field">
+                        <label for="signFabiana">Firma di Fabiana</label>
+                        <input type="text" id="signFabiana" placeholder="Scrivi il tuo nome qui...">
+                    </div>
+                    <div class="signature-field">
+                        <label for="signGabriele">Firma di Gabriele</label>
+                        <input type="text" id="signGabriele" placeholder="Scrivi il tuo nome qui..." value="Gabriele Amato">
+                    </div>
+                </div>
+
+                <div class="signature-date" id="contractDate"></div>
+            </div>
+
+            <button class="confirm-btn" onclick="confirmContract()">Accetto il Contratto! ❤️</button>
+            <div class="success-message" id="successMessage">
+                <span class="emoji">🎉</span>
+                Contratto firmato con successo!
+                <span class="emoji">💍</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date
+        window.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('contractDate').textContent = 
+                'Firmato il: ' + today.toLocaleDateString('it-IT', options);
+        });
+
+        function openContract() {
+            document.getElementById('contractModal').classList.add('show');
+        }
+
+        function closeContract() {
+            document.getElementById('contractModal').classList.remove('show');
+            resetForm();
+        }
+
+        function confirmContract() {
+            const fabiana = document.getElementById('signFabiana').value.trim();
+            const gabriele = document.getElementById('signGabriele').value.trim();
+
+            if (fabiana === '' || gabriele === '') {
+                alert('Per favore, inserisci entrambe le firme! 😊');
+                return;
+            }
+
+            document.getElementById('successMessage').classList.add('show');
+            setTimeout(() => {
+                closeContract();
+            }, 2000);
+        }
+
+        function resetForm() {
+            document.getElementById('signFabiana').value = '';
+            document.getElementById('signGabriele').value = '';
+            document.getElementById('successMessage').classList.remove('show');
+        }
+
+        function showMessage() {
+            window.location.href = 'scusami.html';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('contractModal');
+            if (event.target === modal) {
+                closeContract();
+            }
+        }
+    </script>
+</body>
+</html>
